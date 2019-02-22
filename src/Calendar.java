@@ -4,8 +4,9 @@ public class Calendar {
 	private static final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 
 	public int TotalDaysOfaMonth(int month) {
-		return MAX_DAYS[month -1];
+		return MAX_DAYS[month - 1];
 	}
+
 	public void printSimpeCalendar() {
 		System.out.println(" =====  My Calendar  =====");
 		System.out.println("  일    월     화      수     목     금   토 ");
@@ -16,14 +17,22 @@ public class Calendar {
 	}
 
 	public static void main(String[] args) {
-		// 숫자를 입력받아 해당하는 달의 최대 일수를 출력하는 프로그램
 		Scanner sc = new Scanner(System.in);
 		Calendar cal = new Calendar();
-		System.out.println("월을 입력하세요.");
-		int month = sc.nextInt();
-		
-		System.out.printf("%d월은 %d일까지 있습니다.\n\n",month, cal.TotalDaysOfaMonth(month));
-		cal.printSimpeCalendar();
-		sc.close();
+
+		System.out.println("반복할 횟수를 입력하세요.");
+		int repeat = sc.nextInt();
+
+		for (int i = 0; i < repeat; i++) {
+			System.out.println("달을 입력하세요.");
+			int month = sc.nextInt();
+
+			if (month > 12 || month < 1) {
+				System.out.println("잘못 된 달을 입력하였습니다.");
+			} else {
+				System.out.printf("%d월은 %d일까지 있습니다.\n\n", month, cal.TotalDaysOfaMonth(month));
+			}
+			System.out.println("-----------------");
+		}
 	}
 }
