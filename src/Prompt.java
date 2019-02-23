@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
 public class Prompt {
+	public void printMenu() {
+		System.out.println(" +----------------------+");
+		System.out.println(" | 1.일정등록      ");
+		System.out.println(" | 2.일정검색      ");
+		System.out.println(" | 3.달력보기      ");
+		System.out.println(" | h.도움말  q.종료      ");
+		System.out.println(" +----------------------+");
+	}
+
 	/**
 	 * 
 	 * @param week 요일명
@@ -26,31 +35,50 @@ public class Prompt {
 	}
 
 	public void runPrompt() {
+		printMenu();
 		Scanner sc = new Scanner(System.in);
 		Calendar cal = new Calendar();
-
-		int month = 1;
-		int year = 2019;
-
+		
 		while (true) {
-			System.out.println("연도를 입력하세요.(종료:-1)");
-			System.out.print("YEAR> ");
-			year = sc.nextInt();
-			if (year == -1)
-				break;
-
-			System.out.println("달을 입력하세요.");
-			System.out.print("MONTH> ");
-			month = sc.nextInt();
-
-			if (month > 12 || month < 1) {
-				System.out.println("잘못된 입력입니다.");
-				continue;
-			}
-			cal.printCalendar(year, month);
+			System.out.println("명령( 1, 2, 3, h, q)");
+			String cmd =sc.next();
+			if(cmd.equals("1")) {
+				cmdRegister();
+			}else if(cmd.equals("2")) cmdSearch();
+			else if(cmd.equals("3")) cmdCal(sc, cal);
+			else if(cmd.equals("h")) printMenu();
+			else if(cmd.equals("q")) break;
 		}
+			
 		System.out.println("캘린더를 종료합니다.");
 		sc.close();
+	}
+
+	private void cmdCal(Scanner sc, Calendar cal) {
+		int month = 1;
+		int year = 2019;
+		System.out.println("연도를 입력하세요.");
+		System.out.print("YEAR> ");
+		year = sc.nextInt();
+
+		System.out.println("달을 입력하세요.");
+		System.out.print("MONTH> ");
+		month = sc.nextInt();
+
+		if (month > 12 || month < 1) {
+			System.out.println("잘못된 입력입니다.");
+			return;
+		}
+		cal.printCalendar(year, month);
+	}
+	private void cmdSearch() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void cmdRegister() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public static void main(String[] args) {

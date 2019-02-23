@@ -1,3 +1,6 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Calendar {
@@ -5,6 +8,11 @@ public class Calendar {
 	private static final int[] MAX_DAYS = { 0, 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 	private static final int[] LEAP_MAX_DAYS = { 0, 31, 29, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 
+	public void registerPlan(String strDate, String plan) throws ParseException {
+		Date date= new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		System.out.println(date);
+	}
+	
 	public boolean isLeapYear(int year) {
 		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 			return true;
@@ -75,5 +83,9 @@ public class Calendar {
 
 		int weekday = (count + STANDARD_WEEKDAY) % 7;
 		return weekday;
+	}
+	public static void main(String[] args)throws ParseException{
+		Calendar cal = new Calendar();
+		cal.registerPlan("2019-02-23", "Watch Liam Neeson tonight!");
 	}
 }
