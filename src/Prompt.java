@@ -31,28 +31,23 @@ public class Prompt {
 
 		int month = 1;
 		int year = 2019;
-		int weekday = 0;
 
 		while (true) {
-			System.out.println("연도를 입력하세요");
+			System.out.println("연도를 입력하세요.(종료:-1)");
 			System.out.print("YEAR> ");
 			year = sc.nextInt();
-			System.out.println("달을 입력하세요");
+			if (year == -1)
+				break;
+
+			System.out.println("달을 입력하세요.");
 			System.out.print("MONTH> ");
 			month = sc.nextInt();
-			System.out.println("첫째 날의 요일을 입력하세요(일, 월, 화, 수, 목, 금, 토).");
-			System.out.print("> ");
-			String str_weekday = sc.next();
-			weekday = parseDay(str_weekday);
-			System.out.println(str_weekday + "," + weekday);
 
-			if (month == -1) {
-				break;
-			}
-			if (month > 12) {
+			if (month > 12 || month < 1) {
+				System.out.println("잘못된 입력입니다.");
 				continue;
 			}
-			cal.printCalendar(year, month, weekday);
+			cal.printCalendar(year, month);
 		}
 		System.out.println("캘린더를 종료합니다.");
 		sc.close();
