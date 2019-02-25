@@ -1,5 +1,4 @@
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -7,24 +6,23 @@ public class Calendar {
 
 	private static final int[] MAX_DAYS = { 0, 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 	private static final int[] LEAP_MAX_DAYS = { 0, 31, 29, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
-	
-	private HashMap <Date, String>planMap;
-	
+
+	private HashMap<Date, Schedules> planMap;
+
 	public Calendar() {
-		planMap = new HashMap<Date, String>(); //날짜로 플랜찾기
+		planMap = new HashMap<Date, Schedules>(); // 날짜로 플랜찾기
 	}
 
-	public void registerPlan(String strDate, String plan) throws ParseException {
-		Date date= new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
-		//System.out.println(date);
-		planMap.put(date,plan); //플랜저장하기
+	public void registerPlan(String strDate, String plan) {
+		Schedules s = new Schedules(strDate, plan);
+		planMap.put(s.getDate(), s);
 	}
-	public String searchPlan(String strDate) throws ParseException {
-		Date date= new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
-		String plan = planMap.get(date);
-		return plan;
+
+	public Schedules searchPlan(String strDate) {
+		Date date = Schedules.getDatefromString(strDate);
+		return planMap.get(date);
 	}
-	
+
 	public boolean isLeapYear(int year) {
 		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 			return true;
@@ -56,7 +54,7 @@ public class Calendar {
 		int count = 7 - weekday;
 		int delim = (count < 7) ? count : 0;
 		/*
-		 * same as above: int delim; if (count <7) { delim = count; }else{ delim = 0;
+		 * int delim; if (count <7) { delim = count; }else{ delim = 0;
 		 */
 
 		// print the first line
@@ -81,7 +79,7 @@ public class Calendar {
 		final int STANDARD_WEEKDAY = 4; // Thursday.1st.Jan.1970
 
 		int count = 0;
-		
+
 		for (int i = syear; i < year; i++) {
 			int delta = isLeapYear(i) ? 365 : 365;
 			count += delta;
@@ -91,13 +89,14 @@ public class Calendar {
 			int delta = TotalDaysOfaMonth(year, i);
 			count += delta;
 		}
-		count += day -1;
+		count += day - 1;
 
 		int weekday = (count + STANDARD_WEEKDAY) % 7;
 		return weekday;
 	}
-	public static void main(String[] args)throws ParseException{
+
+	public static void main(String[] args) throws ParseException {
 		Calendar cal = new Calendar();
-		cal.registerPlan("2019-02-23", "Watch Liam Neeson tonight!");
+		cal.registerPlan("2019-02-23", "Watched Cold pursuit");
 	}
 }
