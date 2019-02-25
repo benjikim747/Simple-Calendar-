@@ -1,16 +1,28 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
+import java.util.HashMap;
 
 public class Calendar {
 
 	private static final int[] MAX_DAYS = { 0, 31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
 	private static final int[] LEAP_MAX_DAYS = { 0, 31, 29, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30 };
+	
+	private HashMap <Date, String>planMap;
+	
+	public Calendar() {
+		planMap = new HashMap<Date, String>(); //날짜로 플랜찾기
+	}
 
 	public void registerPlan(String strDate, String plan) throws ParseException {
 		Date date= new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
-		System.out.println(date);
+		//System.out.println(date);
+		planMap.put(date,plan); //플랜저장하기
+	}
+	public String searchPlan(String strDate) throws ParseException {
+		Date date= new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		String plan = planMap.get(date);
+		return plan;
 	}
 	
 	public boolean isLeapYear(int year) {
