@@ -10,28 +10,31 @@ public class Prompt {
 		System.out.println(" | h.도움말  q.종료      ");
 		System.out.println(" +----------------------+");
 	}
+
 	/**
 	 * 
 	 * @param week 요일명
 	 * @return 0~6 (0 = Sunday, 6 = Saturday)
 	 */
 	public int parseDay(String week) {
-		if (week.equals("일"))
+		switch (week) {
+		case "sun":
 			return 0;
-		else if (week.equals("월"))
+		case "mon":
 			return 1;
-		else if (week.equals("화"))
+		case "tue":
 			return 2;
-		else if (week.equals("수"))
+		case "wed":
 			return 3;
-		else if (week.equals("목"))
+		case "thu":
 			return 4;
-		else if (week.equals("금"))
+		case "fri":
 			return 5;
-		else if (week.equals("토"))
+		case "sat":
 			return 6;
-		else
+		default:
 			return 0;
+		}
 	}
 
 	public void runPrompt() throws ParseException {
@@ -39,21 +42,32 @@ public class Prompt {
 		Scanner sc = new Scanner(System.in);
 		Calendar cal = new Calendar();
 
-		while (true) {
+		boolean isLoop = true;
+		while (isLoop) {
 			System.out.println("명령( 1, 2, 3, h, q)");
 			String cmd = sc.next();
-			if (cmd.equals("1"))
-				cmdRegister(sc, cal);
-			else if (cmd.equals("2"))
-				cmdSearch(sc, cal);
-			else if (cmd.equals("3"))
-				cmdCal(sc, cal);
-			else if (cmd.equals("h"))
-				printMenu();
-			else if (cmd.equals("q"))
-				break;
-		}
 
+			switch (cmd) {
+			case "1":
+				cmdRegister(sc, cal);
+				break;
+			case "2":
+				cmdRegister(sc, cal);
+				break;
+			case "3":
+				cmdRegister(sc, cal);
+				break;
+			case "4":
+				cmdRegister(sc, cal);
+				break;
+			case "h":
+				printMenu();
+				break;
+			case "q":
+				isLoop = false;
+				break;
+			}
+		}
 		System.out.println("캘린더를 종료합니다.");
 		sc.close();
 	}
